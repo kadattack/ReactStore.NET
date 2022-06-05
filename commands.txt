@@ -1,0 +1,23 @@
+dotnet new sln
+dotnet new webapi -o PowerReact
+dotnet sln add PowerReact
+dotnet watch run
+
+react:
+npm start
+
+react libs
+    material ui
+    axios
+    redux
+    forms
+    react-router
+
+npx create-react-app client --template typescript --use-npm
+
+
+
+microsoft.aspnetcore.authentication.jwtbearer
+microsoft.aspnetcore.identity.entityframeworkcore
+Microsoft.EntityFrameworkCore.Sqlite
+Microsoft.EntityFrameworkCore.Design
