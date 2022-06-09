@@ -18,7 +18,7 @@ public static class DbInitializer
                 PictureUrl = "/images/products/glove-react2.png",
                 Type = "React",
                 Brand = "Gloves",
-                QualityInStock = 100
+                QuantityInStock = 100
             },
             new Product
             {
@@ -28,8 +28,49 @@ public static class DbInitializer
                 PictureUrl = "/images/products/glove-react2.png",
                 Type = "React",
                 Brand = "Gloves",
-                QualityInStock = 100
+                QuantityInStock = 100
+            },
+            new Product
+            {
+                Name = "test2",
+                Description = "test2",
+                Price = 10,
+                PictureUrl = "/images/products/glove-react2.png",
+                Type = "React",
+                Brand = "Gloves",
+                QuantityInStock = 100
+            },
+            new Product
+            {
+                Name = "test2",
+                Description = "test2",
+                Price = 10,
+                PictureUrl = "/images/products/glove-react2.png",
+                Type = "React",
+                Brand = "Gloves",
+                QuantityInStock = 100
+            },
+            new Product
+            {
+                Name = "test2",
+                Description = "test2",
+                Price = 10,
+                PictureUrl = "/images/products/glove-react2.png",
+                Type = "React",
+                Brand = "Gloves",
+                QuantityInStock = 100
+            },
+            new Product
+            {
+                Name = "test2",
+                Description = "test2",
+                Price = 10,
+                PictureUrl = "/images/products/glove-react2.png",
+                Type = "React",
+                Brand = "Gloves",
+                QuantityInStock = 100
             }
+
         };
 
         foreach (var product in products)

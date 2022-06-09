@@ -19,6 +19,10 @@ builder.Services.AddDbContext<PowerReact.Data.DataContext>(opt =>
     opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
 });
 
+
+builder.Services.AddCors();
+
+
 builder.Services.AddIdentityCore<User>().AddRoles<IdentityRole>().AddEntityFrameworkStores<DataContext>();
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
@@ -33,7 +37,9 @@ var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<DataContext>();
 try
 {
-    context.Database.Migrate();
+    context.Database.EnsureDeleted();
+    context.Database.EnsureCreated();
+    // context.Database.Migrate();
     DbInitializer.Initialize(context);
 }
 catch (Exception e)
@@ -56,6 +62,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseRouting();
+app.UseCors(ops =>
+{
+    ops.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+});
 
 app.UseHttpsRedirection();
 
