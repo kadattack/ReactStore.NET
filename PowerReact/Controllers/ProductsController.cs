@@ -5,9 +5,7 @@ using PowerReact.Entities;
 
 namespace PowerReact.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class ProductsController : ControllerBase
+public class ProductsController : BaseApiController
 {
     private readonly DataContext _context;
     public ProductsController(DataContext context)
@@ -26,7 +24,7 @@ public class ProductsController : ControllerBase
     {
         var product = await _context.Products.FindAsync(id);
         if (product == null)
-            return BadRequest("No product of this id");
+            return NotFound();
 
         return product;
     }

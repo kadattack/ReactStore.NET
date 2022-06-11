@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PowerReact.Data;
 using PowerReact.Entities;
+using PowerReact.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,10 +56,12 @@ finally
 // var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>();
 
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
+    // app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -71,6 +74,7 @@ app.UseCors(ops =>
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
