@@ -1,83 +1,304 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 using PowerReact.Entities;
+using Microsoft.AspNetCore.Identity;
 
-namespace PowerReact.Data;
-
-public static class DbInitializer
+namespace PowerReact.Data
 {
-    public static void Initialize(DataContext context)
+    public static class DbInitializer
     {
-        if (context.Products.Any()) return;
-
-        var products = new List<Product>
+        public static async Task Initialize(DataContext context, UserManager<User> userManager, List<string> urls)
         {
-            new Product
+
+            // Console.WriteLine(urls);
+            // System.Environment.Exit(0);
+            if (!userManager.Users.Any())
             {
-                Name = "test1",
-                Description = "test1",
-                Price = 10,
-                PictureUrl = "/images/products/glove-react2.png",
-                Type = "React",
-                Brand = "Gloves",
-                QuantityInStock = 100
-            },
-            new Product
-            {
-                Name = "test2",
-                Description = "test2",
-                Price = 10,
-                PictureUrl = "/images/products/glove-react2.png",
-                Type = "React",
-                Brand = "Gloves",
-                QuantityInStock = 100
-            },
-            new Product
-            {
-                Name = "test2",
-                Description = "test2",
-                Price = 10,
-                PictureUrl = "/images/products/glove-react2.png",
-                Type = "React",
-                Brand = "Gloves",
-                QuantityInStock = 100
-            },
-            new Product
-            {
-                Name = "test2",
-                Description = "test2",
-                Price = 10,
-                PictureUrl = "/images/products/glove-react2.png",
-                Type = "React",
-                Brand = "Gloves",
-                QuantityInStock = 100
-            },
-            new Product
-            {
-                Name = "test2",
-                Description = "test2",
-                Price = 10,
-                PictureUrl = "/images/products/glove-react2.png",
-                Type = "React",
-                Brand = "Gloves",
-                QuantityInStock = 100
-            },
-            new Product
-            {
-                Name = "test2",
-                Description = "test2",
-                Price = 10,
-                PictureUrl = "/images/products/glove-react2.png",
-                Type = "React",
-                Brand = "Gloves",
-                QuantityInStock = 100
+                var user = new User
+                {
+                    UserName = "bob",
+                    Email = "bob@test.com"
+                };
+
+                await userManager.CreateAsync(user, "Pa$$w0rd");
+                await userManager.AddToRoleAsync(user, "Member");
+
+                var admin = new User
+                {
+                    UserName = "admin",
+                    Email = "admin@test.com"
+                };
+
+                await userManager.CreateAsync(admin, "Pa$$w0rd");
+                await userManager.AddToRolesAsync(admin, new[] {"Member", "Admin"});
             }
 
-        };
 
-        foreach (var product in products)
-        {
-            context.Products.Add(product);
+
+            if (context.Products.Any()) return;
+
+            var products = new List<Product>
+            {
+                new Product
+                {
+                    Name = "Angular Speedster Board 2000",
+                    Description =
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 20000,
+                    PictureUrl = Path.Combine(urls[0], "Images", "sb-ang1.png"),
+                    Brand = "Angular",
+                    Type = "Boards",
+                    QuantityInStock = 100,
+                    PublicId = "1"
+
+                },
+                new Product
+                {
+                    Name = "Green Angular Board 3000",
+                    Description = "Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.",
+                    Price = 15000,
+                    PictureUrl = Path.Combine(urls[0]
+ , "Images", "sb-ang2.png"),
+                    Brand = "Angular",
+                    Type = "Boards",
+                    QuantityInStock = 100,
+                    PublicId = "2"
+
+                },
+                new Product
+                {
+                    Name = "Core Board Speed Rush 3",
+                    Description =
+                        "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
+                    Price = 18000,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "sb-core1.png"),
+                    Brand = "NetCore",
+                    Type = "Boards",
+                    QuantityInStock = 100,
+                    PublicId = "3"
+                },
+                new Product
+                {
+                    Name = "Net Core Super Board",
+                    Description =
+                        "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.",
+                    Price = 30000,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "sb-core2.png"),
+                    Brand = "NetCore",
+                    Type = "Boards",
+                    QuantityInStock = 100,
+                    PublicId = "4"
+                },
+                new Product
+                {
+                    Name = "React Board Super Whizzy Fast",
+                    Description =
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 25000,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "sb-react1.png"),
+                    Brand = "React",
+                    Type = "Boards",
+                    QuantityInStock = 100,
+                    PublicId = "5"
+                },
+                new Product
+                {
+                    Name = "Typescript Entry Board",
+                    Description =
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 12000,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "sb-ts1.png"),
+                    Brand = "TypeScript",
+                    Type = "Boards",
+                    QuantityInStock = 100,
+                    PublicId = "6"
+                },
+                new Product
+                {
+                    Name = "Core Blue Hat",
+                    Description =
+                        "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 1000,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "hat-core1.png"),
+                    Brand = "NetCore",
+                    Type = "Hats",
+                    QuantityInStock = 100,
+                    PublicId = "7"
+                },
+                new Product
+                {
+                    Name = "Green React Woolen Hat",
+                    Description =
+                        "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 8000,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "hat-react1.png"),
+                    Brand = "React",
+                    Type = "Hats",
+                    QuantityInStock = 100,
+                    PublicId = "8"
+                },
+                new Product
+                {
+                    Name = "Purple React Woolen Hat",
+                    Description =
+                        "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 1500,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "hat-react2.png"),
+                    Brand = "React",
+                    Type = "Hats",
+                    QuantityInStock = 100,
+                    PublicId = "9"
+                },
+                new Product
+                {
+                    Name = "Blue Code Gloves",
+                    Description =
+                        "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 1800,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "glove-code1.png"),
+                    Brand = "VS Code",
+                    Type = "Gloves",
+                    QuantityInStock = 100,
+                    PublicId = "10"
+                },
+                new Product
+                {
+                    Name = "Green Code Gloves",
+                    Description =
+                        "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 1500,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "glove-code2.png"),
+                    Brand = "VS Code",
+                    Type = "Gloves",
+                    QuantityInStock = 100,
+                    PublicId = "11"
+                },
+                new Product
+                {
+                    Name = "Purple React Gloves",
+                    Description =
+                        "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 1600,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "glove-react1.png"),
+                    Brand = "React",
+                    Type = "Gloves",
+                    QuantityInStock = 100,
+                    PublicId = "12"
+                },
+                new Product
+                {
+                    Name = "Green React Gloves",
+                    Description =
+                        "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 1400,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "glove-react2.png"),
+                    Brand = "React",
+                    Type = "Gloves",
+                    QuantityInStock = 100,
+                    PublicId = "13"
+                },
+                new Product
+                {
+                    Name = "Redis Red Boots",
+                    Description =
+                        "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
+                    Price = 25000,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "boot-redis1.png"),
+                    Brand = "Redis",
+                    Type = "Boots",
+                    QuantityInStock = 100,
+                    PublicId = "14"
+                },
+                new Product
+                {
+                    Name = "Core Red Boots",
+                    Description =
+                        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+                    Price = 18999,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "boot-core2.png"),
+                    Brand = "NetCore",
+                    Type = "Boots",
+                    QuantityInStock = 100,
+                    PublicId = "15"
+                },
+                new Product
+                {
+                    Name = "Core Purple Boots",
+                    Description =
+                        "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.",
+                    Price = 19999,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "boot-core1.png"),
+                    Brand = "NetCore",
+                    Type = "Boots",
+                    QuantityInStock = 100,
+                    PublicId = "16"
+                },
+                new Product
+                {
+                    Name = "Angular Purple Boots",
+                    Description = "Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.",
+                    Price = 15000,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "boot-ang2.png"),
+                    Brand = "Angular",
+                    Type = "Boots",
+                    QuantityInStock = 100,
+                    PublicId = "17"
+                },
+                new Product
+                {
+                    Name = "Angular Blue Boots",
+                    Description =
+                        "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
+                    Price = 18000,
+                    PictureUrl = Path.Combine(urls[0]
+
+ , "Images", "boot-ang1.png"),
+                    Brand = "Angular",
+                    Type = "Boots",
+                    QuantityInStock = 100,
+                    PublicId = "18"
+                },
+            };
+
+            foreach (var product in products)
+            {
+                context.Products.Add(product);
+            }
+
+            context.SaveChanges();
         }
-
-        context.SaveChanges();
     }
 }

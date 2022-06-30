@@ -1,38 +1,40 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PowerReact.Controllers;
-
-public class BuggyController : BaseApiController
+namespace PowerReact.Controllers
 {
-    [HttpGet("not-found")]
-    public ActionResult GetNotFound()
+    public class BuggyController : BaseApiController
     {
-        return NotFound(); // returns 404
-    }
+        [HttpGet("not-found")]
+        public ActionResult GetNotFound()
+        {
+            return NotFound();
+        }
 
-    [HttpGet("bad-request")]
-    public ActionResult GetBadRequest()
-    {
-        return BadRequest(new ProblemDetails{Title = "This is a bad request"});
-    }
+        [HttpGet("bad-request")]
+        public ActionResult GetBadRequest()
+        {
+            return BadRequest(new ProblemDetails{Title = "This is a bad request"});
+        }
 
-    [HttpGet("unauthorized")]
-    public ActionResult GetUnauthorized()
-    {
-        return Unauthorized(); // returns 404
-    }
+        [HttpGet("unauthorised")]
+        public ActionResult GetUnauthorised()
+        {
+            return Unauthorized();
+        }
 
-    [HttpGet("validation-error")]
-    public ActionResult GetValidationError()
-    {
-        ModelState.AddModelError("Problem1", "This is the first error"); // returns 404
-        ModelState.AddModelError("Problem2", "This is the second error"); // returns 404
-        return ValidationProblem(); // returns all errors in ModelState (related to validations)
-    }
+        [HttpGet("validation-error")]
+        public ActionResult GetValidationError()
+        {
+            ModelState.AddModelError("Problem1", "This is the first error");
+            ModelState.AddModelError("Problem2", "This is the second error");
+            return ValidationProblem();
+        }
 
-    [HttpGet("server-error")]
-    public ActionResult GetServerError()
-    {
-        throw new Exception("This is a server error");
+        [HttpGet("server-error")]
+        public ActionResult GetServerError()
+        {
+            throw new Exception("This is a server error");
+        }
     }
 }

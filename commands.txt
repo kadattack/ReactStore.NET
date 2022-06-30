@@ -3,6 +3,8 @@ dotnet new webapi -o PowerReact
 dotnet sln add PowerReact
 dotnet watch run
 
+dotnet ef migrations remove
+
 react:
 npm start
 
@@ -21,3 +23,27 @@ microsoft.aspnetcore.authentication.jwtbearer
 microsoft.aspnetcore.identity.entityframeworkcore
 Microsoft.EntityFrameworkCore.Sqlite
 Microsoft.EntityFrameworkCore.Design
+
+
+
+
+
+
+Redux vsebuje slice[state(store variable address), action(function or variable passed as an argument to change the varialbe) reducer(modifys the variable in store)]
+Create a store slice: (store je samo container ki hrani spremenljivke)
+	create configureStore.ts - defines variable to make it available to other components
+	create basketSlice.ts - holds the state, action and reducer
+	in index.tsx wrap <App> with <Provider store={store}>
+
+
+
+
+async slices with
+naredis createAsyncThunk funkcijo ki gre po objekte
+naredis slice z createSlice kjer dodas podrobnosti kako deluje async funkcija (pending,fufilled, rejected)
+klices async funkcijo z dispatch(async_func)
+
+
+da ustvaris predprirpavljene funkcije klica uporabis createEntityAdapter
+createEntityAdapter
+
