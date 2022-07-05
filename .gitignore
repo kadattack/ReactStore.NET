@@ -1,3 +1,6 @@
 ./PowerReact/client/node_modules
 ./PowerReact/bin
 ./PowerReact/obj
+./.idea
+./.vscode
+./.$react.drawio.bkp
