@@ -96,8 +96,6 @@ var app = builder.Build();
 
 var scope = app.Services.CreateScope();
 var context = scope.ServiceProvider.GetRequiredService<DataContext>();
-var server = scope.ServiceProvider.GetRequiredService<IServer>();
-var contextHttp = scope.ServiceProvider.GetRequiredService<IHttpContextAccessor>();
 
 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 ICollection<string> urls = new List<string>();
@@ -120,9 +118,6 @@ app.Lifetime.ApplicationStarted.Register( async () =>
     {
         scope.Dispose();
     }
-
-
-
 });
 
 // var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>();
