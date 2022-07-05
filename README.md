@@ -13,4 +13,4 @@ As this is a simple tutorial intended for learning it uses a simple Sqlite file 
 Unlike the the tutorial it does not use Cloudinary to host images of the store. It simply stores uploaded product images on the server and retrieves them when required.
 
 
-![alt text](https://github.com/kadattack/ReactStore.NET/blob/main/Screenshot%20from%202022-07-05%2014-46-12.png)
+![Website image](https://github.com/kadattack/ReactStore.NET/blob/main/Screenshot%20from%202022-07-05%2014-58-06.png)
